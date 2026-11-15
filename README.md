@@ -107,19 +107,3 @@ Tiap environment punya folder build sendiri di `.pio\build\<nama_env>`, jadi tid
 GND layar ke GND board. Tombol mode hanya dipakai OLED: D2 ke GND pada Uno, atau GPIO27 ke GND pada ESP32.
 
 ---
-
-## Troubleshooting
-
-| Gejala | Penyebab / solusi |
-|---|---|
-| Build membangun banyak environment sekaligus | `default_envs` hilang; pastikan bagian `[platformio]` di atas `platformio.ini` masih ada |
-| `#error Pilih display ...` saat Build | Environment yang dibuild tidak punya flag `-DDISPLAY_...`; pilih environment bernama `<board>_<layar>` |
-| Garis merah `#error` di `display.h` tapi Build sukses | IntelliSense belum menyegarkan diri: pilih environment, jalankan `PlatformIO: Rebuild IntelliSense Index`, lalu `Developer: Reload Window` |
-| Garis merah di `display_oled.cpp` saat memilih `uno_lcd` | Normal; blok itu tidak aktif untuk environment tersebut |
-| `undefined reference to displayBegin` | File `display_*.cpp` belum ada di `src/`, atau environment tidak memiliki flag display |
-| Gagal mengunduh `Adafruit SSD1305` | Ganti baris itu di `platformio.ini` dengan `https://github.com/adafruit/Adafruit_SSD1305.git` |
-| `relocation truncated to fit` (Uno) | Pastikan `build_unflags = -flto` masih ada di `[base_uno]`, lalu Clean dan Build ulang |
-| `Access is denied` saat upload | Serial Monitor atau skrip Python masih memegang port; tutup keduanya |
-| LCD hanya menampilkan kotak di baris atas | LCD tidak menerima inisialisasi: cek wiring SDA/SCL dan daya 5 V |
-
-Jika masalah belum teratasi, siapkan isi `platformio.ini`, nama environment yang dipilih, dan teks error dari terminal Build (bukan hanya dari editor).
